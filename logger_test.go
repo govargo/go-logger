@@ -28,4 +28,3 @@ func TestWarn(t *testing.T) {
 func TestError(t *testing.T) {
 	Error("test error")
 }
-

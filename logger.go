@@ -1,6 +1,8 @@
 package logger
 
 import (
+	"os"
+
 	"go.uber.org/zap"
 )
 
@@ -9,11 +11,27 @@ var logger *zap.Logger
 func init() {
 	var err error
 
-	config := NewProductionConfig()
-	logger, err = config.Build(zap.AddCallerSkip(1))
+	sn := os.Getenv("SERVICE_NAME")
+	if sn == "" {
+		config := NewProductionConfig()
+		logger, err = config.Build(zap.AddCallerSkip(1))
+	} else {
+		logger, err = NewProductionWithCore(WrapCore(
+			ReportAllErrors(true),
+			ServiceName(sn),
+		), zap.AddCallerSkip(1))
+	}
+
 	if err != nil {
 		panic(err)
 	}
+}
+
+// NewProductionWithCore is same as NewProduction but accepts a custom configured core
+func NewProductionWithCore(core zap.Option, options ...zap.Option) (*zap.Logger, error) {
+	options = append(options, core)
+
+	return NewProductionConfig().Build(options...)
 }
 
 func Debug(message string, fields ...zap.Field) {
