@@ -20,6 +20,7 @@ func init() {
 			ReportAllErrors(true),
 			ServiceName(sn),
 		), zap.AddCallerSkip(1))
+		logger.Info("SERVICE_NAME exists. Enabling Error Reporting")
 	}
 
 	if err != nil {
