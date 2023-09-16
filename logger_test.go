@@ -1,44 +1,31 @@
-package zapdriver
+package logger
 
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-
-	"go.uber.org/zap"
+	"gotest.tools/v3/assert"
 )
 
-func TestNewProduction(t *testing.T) {
-	logger, err := NewProduction(zap.Fields(zap.String("hello", "world")))
-
-	require.NoError(t, err)
-	assert.IsType(t, &zap.Logger{}, logger)
+func TestNewProductionConfig(t *testing.T) {
+	npc := NewProductionConfig()
+	assert.Equal(t, "info", npc.Level.String())
+	assert.Equal(t, false, npc.Development)
+	assert.Equal(t, "json", npc.Encoding)
 }
 
-func TestNewProductionWithCore(t *testing.T) {
-	logger, err := NewProductionWithCore(
-		WrapCore(ReportAllErrors(true)),
-		zap.Fields(zap.String("hello", "world")),
-	)
-
-	require.NoError(t, err)
-	assert.IsType(t, &zap.Logger{}, logger)
+func TestDebug(t *testing.T) {
+	Debug("test debug")
 }
 
-func TestNewDevelopment(t *testing.T) {
-	logger, err := NewDevelopment(zap.Fields(zap.String("hello", "world")))
-
-	require.NoError(t, err)
-	assert.IsType(t, &zap.Logger{}, logger)
+func TestInfo(t *testing.T) {
+	Info("test info")
 }
 
-func TestNewDevelopmentWithCore(t *testing.T) {
-	logger, err := NewDevelopmentWithCore(
-		WrapCore(ReportAllErrors(true)),
-		zap.Fields(zap.String("hello", "world")),
-	)
-
-	require.NoError(t, err)
-	assert.IsType(t, &zap.Logger{}, logger)
+func TestWarn(t *testing.T) {
+	Warn("test warning")
 }
+
+func TestError(t *testing.T) {
+	Error("test error")
+}
+

@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 // "Broker: Request timed out"
 // https://console.cloud.google.com/logs/viewer?project=bnl-blendle&minLogLevel=
@@ -20,7 +20,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// HTTP adds the correct Stackdriver "HTTP" field.
+// HTTP adds the correct Cloud Logging "HTTP" field.
 //
 // see: https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#HttpRequest
 func HTTP(req *HTTPPayload) zap.Field {
@@ -28,7 +28,7 @@ func HTTP(req *HTTPPayload) zap.Field {
 }
 
 // HTTPPayload is the complete payload that can be interpreted by
-// Stackdriver as a HTTP request.
+// Cloud Logging as a HTTP request.
 type HTTPPayload struct {
 	// The request method. Examples: "GET", "HEAD", "PUT", "POST".
 	RequestMethod string `json:"requestMethod"`

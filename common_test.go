@@ -1,4 +1,4 @@
-package zapdriver_test
+package logger
 
 import (
 	"time"

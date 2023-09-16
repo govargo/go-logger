@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"runtime"
@@ -12,9 +12,9 @@ func TestSourceLocation(t *testing.T) {
 
 	got := SourceLocation(runtime.Caller(0)).Interface.(*source)
 
-	assert.Contains(t, got.File, "zapdriver/source_test.go")
+	assert.Contains(t, got.File, "go-logger/source_test.go")
 	assert.Equal(t, "13", got.Line)
-	assert.Contains(t, got.Function, "zapdriver.TestSourceLocation")
+	assert.Contains(t, got.Function, "logger.TestSourceLocation")
 }
 
 func TestNewSource(t *testing.T) {
@@ -22,7 +22,7 @@ func TestNewSource(t *testing.T) {
 
 	got := newSource(runtime.Caller(0))
 
-	assert.Contains(t, got.File, "zapdriver/source_test.go")
+	assert.Contains(t, got.File, "go-logger/source_test.go")
 	assert.Equal(t, "23", got.Line)
-	assert.Contains(t, got.Function, "zapdriver.TestNewSource")
+	assert.Contains(t, got.Function, "logger.TestNewSource")
 }

@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"go.uber.org/zap"

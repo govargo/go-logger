@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"runtime"
@@ -10,7 +10,7 @@ import (
 
 const sourceKey = "logging.googleapis.com/sourceLocation"
 
-// SourceLocation adds the correct Stackdriver "SourceLocation" field.
+// SourceLocation adds the correct Cloud Logging "SourceLocation" field.
 //
 // see: https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#LogEntrySourceLocation
 func SourceLocation(pc uintptr, file string, line int, ok bool) zap.Field {
@@ -56,11 +56,11 @@ func newSource(pc uintptr, file string, line int, ok bool) *source {
 		function = fn.Name()
 	}
 
-	source := &source{
+	s := &source{
 		File:     file,
 		Line:     strconv.Itoa(line),
 		Function: function,
 	}
 
-	return source
+	return s
 }

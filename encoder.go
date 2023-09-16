@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"time"
@@ -7,7 +7,7 @@ import (
 )
 
 // logLevelSeverity maps the Zap log levels to the correct level names as
-// defined by Stackdriver.
+// defined by Cloud Logging.
 //
 // DEFAULT     (0) The log entry has no assigned severity level.
 // DEBUG     (100) Debug or trace information.
@@ -31,7 +31,7 @@ var logLevelSeverity = map[zapcore.Level]string{
 }
 
 // encoderConfig is the default encoder configuration, slightly tweaked to use
-// the correct fields for Stackdriver to parse them.
+// the correct fields for Cloud Logging to parse them.
 var encoderConfig = zapcore.EncoderConfig{
 	TimeKey:        "timestamp",
 	LevelKey:       "severity",
@@ -46,7 +46,7 @@ var encoderConfig = zapcore.EncoderConfig{
 	EncodeCaller:   zapcore.ShortCallerEncoder,
 }
 
-// EncodeLevel maps the internal Zap log level to the appropriate Stackdriver
+// EncodeLevel maps the internal Zap log level to the appropriate Cloud Logging
 // level.
 func EncodeLevel(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(logLevelSeverity[l])

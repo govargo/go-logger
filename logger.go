@@ -1,39 +1,45 @@
-package zapdriver
+package logger
 
 import (
 	"go.uber.org/zap"
 )
 
-// NewProduction builds a sensible production Logger that writes InfoLevel and
-// above logs to standard error as JSON.
-//
-// It's a shortcut for NewProductionConfig().Build(...Option).
-func NewProduction(options ...zap.Option) (*zap.Logger, error) {
-	options = append(options, WrapCore())
+var logger *zap.Logger
 
-	return NewProductionConfig().Build(options...)
+func init() {
+	var err error
+
+	config := NewProductionConfig()
+	logger, err = config.Build(zap.AddCallerSkip(1))
+	if err != nil {
+		panic(err)
+	}
 }
 
-// NewProductionWithCore is same as NewProduction but accepts a custom configured core
-func NewProductionWithCore(core zap.Option, options ...zap.Option) (*zap.Logger, error) {
-	options = append(options, core)
-
-	return NewProductionConfig().Build(options...)
+func Debug(message string, fields ...zap.Field) {
+	logger.Debug(message, fields...)
 }
 
-// NewDevelopment builds a development Logger that writes DebugLevel and above
-// logs to standard error in a human-friendly format.
-//
-// It's a shortcut for NewDevelopmentConfig().Build(...Option).
-func NewDevelopment(options ...zap.Option) (*zap.Logger, error) {
-	options = append(options, WrapCore())
-
-	return NewDevelopmentConfig().Build(options...)
+func Info(message string, fields ...zap.Field) {
+	logger.Info(message, fields...)
 }
 
-// NewDevelopmentWithCore is same as NewDevelopment but accepts a custom configured core
-func NewDevelopmentWithCore(core zap.Option, options ...zap.Option) (*zap.Logger, error) {
-	options = append(options, core)
+func Warn(message string, fields ...zap.Field) {
+	logger.Warn(message, fields...)
+}
 
-	return NewDevelopmentConfig().Build(options...)
+func Error(message string, fields ...zap.Field) {
+	logger.Error(message, fields...)
+}
+
+func Fatal(message string, fields ...zap.Field) {
+	logger.Fatal(message, fields...)
+}
+
+func Sync() error {
+	err := logger.Sync()
+	if err != nil {
+		return err
+	}
+	return nil
 }

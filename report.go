@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"runtime"
@@ -10,7 +10,7 @@ import (
 
 const contextKey = "context"
 
-// ErrorReport adds the correct Stackdriver "context" field for getting the log line
+// ErrorReport adds the correct Error Reporting "context" field for getting the log line
 // reported as error.
 //
 // see: https://cloud.google.com/error-reporting/docs/formatting-error-messages

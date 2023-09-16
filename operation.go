@@ -1,4 +1,4 @@
-package zapdriver
+package logger
 
 import (
 	"go.uber.org/zap"
@@ -7,7 +7,7 @@ import (
 
 const operationKey = "logging.googleapis.com/operation"
 
-// Operation adds the correct Stackdriver "operation" field.
+// Operation adds the correct Cloud Logging "operation" field.
 //
 // Additional information about a potentially long-running operation with which
 // a log entry is associated.
@@ -42,7 +42,7 @@ func OperationEnd(id, producer string) zap.Field {
 	return Operation(id, producer, false, true)
 }
 
-// operation is the complete payload that can be interpreted by Stackdriver as
+// operation is the complete payload that can be interpreted by Cloud Logging as
 // an operation.
 type operation struct {
 	// Optional. An arbitrary operation identifier. Log entries with the same
