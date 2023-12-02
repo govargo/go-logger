@@ -3,6 +3,7 @@ package logger
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
@@ -86,14 +87,21 @@ func InterceptorLogger(l *zap.Logger) logging.Logger {
 			}
 		}
 
+		log.Printf("DEBUG LOG: %s", msg)
+		log.Printf("DEBUG LOG: %v", f)
+
 		switch lvl {
 		case logging.LevelDebug:
+			log.Print("DEBUG LEVEL")
 			Debug(msg, f...)
 		case logging.LevelInfo:
+			log.Print("INFO LEVEL")
 			Info(msg, f...)
 		case logging.LevelWarn:
+			log.Print("WARN LEVEL")
 			Warn(msg, f...)
 		case logging.LevelError:
+			log.Print("ERROR LEVEL")
 			Error(msg, f...)
 		default:
 			Fatal(fmt.Sprintf("unknown level %v", lvl))
