@@ -7,7 +7,6 @@ import (
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
 
 var logger *zap.Logger
@@ -104,10 +103,6 @@ func InterceptorLogger(l *zap.Logger) logging.Logger {
 	})
 }
 
-func GetUnaryClientInterceptor() grpc.UnaryClientInterceptor {
-	opts := []logging.Option{
-		logging.WithLogOnEvents(logging.StartCall, logging.FinishCall),
-	}
-
-	return logging.UnaryClientInterceptor(InterceptorLogger(logger), opts...)
+func GetgRPCLogger() logging.Logger {
+	return InterceptorLogger(logger)
 }

@@ -34,7 +34,7 @@ func TestInterceptorLogger(t *testing.T) {
 	assert.NotEmpty(t, l)
 }
 
-func TestGetUnaryClientInterceptor(t *testing.T) {
-	g := GetUnaryClientInterceptor()
-	assert.NotEmpty(t, g)
+func TestGetgRPCLogger(t *testing.T) {
+	gl := GetgRPCLogger()
+	assert.NotEmpty(t, gl)
 }
