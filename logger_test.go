@@ -3,7 +3,7 @@ package logger
 import (
 	"testing"
 
-	"gotest.tools/v3/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewProductionConfig(t *testing.T) {
@@ -27,4 +27,14 @@ func TestWarn(t *testing.T) {
 
 func TestError(t *testing.T) {
 	Error("test error")
+}
+
+func TestInterceptorLogger(t *testing.T) {
+	l := InterceptorLogger(logger)
+	assert.NotEmpty(t, l)
+}
+
+func TestGetUnaryClientInterceptor(t *testing.T) {
+	g := GetUnaryClientInterceptor()
+	assert.NotEmpty(t, g)
 }
