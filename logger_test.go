@@ -34,7 +34,7 @@ func TestInterceptorLogger(t *testing.T) {
 	assert.NotEmpty(t, l)
 }
 
-func TestGetgRPCLogger(t *testing.T) {
-	gl := GetgRPCLogger()
+func TestGetGRPCLogger(t *testing.T) {
+	gl := GetGRPCLogger()
 	assert.NotEmpty(t, gl)
 }
