@@ -38,26 +38,32 @@ func NewProductionWithCore(core zap.Option, options ...zap.Option) (*zap.Logger,
 	return NewProductionConfig().Build(options...)
 }
 
+// Debug output Debug log with zap.fields
 func Debug(message string, fields ...zap.Field) {
 	logger.Debug(message, fields...)
 }
 
+// Info output Info log with zap.fields
 func Info(message string, fields ...zap.Field) {
 	logger.Info(message, fields...)
 }
 
+// Warn output Warn log with zap.fields
 func Warn(message string, fields ...zap.Field) {
 	logger.Warn(message, fields...)
 }
 
+// Error output Error log with zap.fields
 func Error(message string, fields ...zap.Field) {
 	logger.Error(message, fields...)
 }
 
+// Fatal output Fatal log with zap.fields
 func Fatal(message string, fields ...zap.Field) {
 	logger.Fatal(message, fields...)
 }
 
+// Sync calls zap.Logger Sync
 func Sync() error {
 	err := logger.Sync()
 	if err != nil {
@@ -66,6 +72,7 @@ func Sync() error {
 	return nil
 }
 
+// InterceptorLogger return github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging Logger
 func InterceptorLogger(l *zap.Logger) logging.Logger {
 	return logging.LoggerFunc(func(ctx context.Context, lvl logging.Level, msg string, fields ...any) {
 		f := make([]zap.Field, 0, len(fields)/2)
@@ -101,6 +108,7 @@ func InterceptorLogger(l *zap.Logger) logging.Logger {
 	})
 }
 
+// GetGRPCLogger return from zap.Logger to github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging Logger
 func GetGRPCLogger() logging.Logger {
 	return InterceptorLogger(logger)
 }
